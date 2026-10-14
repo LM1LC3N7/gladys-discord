@@ -1,6 +1,6 @@
 {
   "name": "gladys-discord",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Discord for Gladys Assistant: chat with Gladys and receive its notifications through a Discord bot, a \"message received\" scene trigger and a \"post in a channel\" scene action.",
   "type": "module",

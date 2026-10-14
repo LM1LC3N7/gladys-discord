@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-14
+
 ### Added
 
 - Discord as a Gladys messaging channel through your own bot: each Gladys
@@ -27,3 +29,6 @@ the notes of the version's GitHub Release.
   the invite link of the bot.
 - Gateway connection with heartbeat, resume and reconnection; REST rate
   limits honoured.
+
+[Unreleased]: https://github.com/LM1LC3N7/gladys-discord/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/LM1LC3N7/gladys-discord/releases/tag/v0.1.1
