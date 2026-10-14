@@ -1,0 +1,195 @@
+{
+  "manifest_version": 1,
+  "type": "communication",
+  "name": "Discord",
+  "description": {
+    "en": "Unofficial connector: chat with Gladys and get its notifications through your Discord bot.",
+    "fr": "Connecteur non officiel : parlez à Gladys et recevez ses notifications via votre bot Discord."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/lm1lc3n7/gladys-discord:0.1.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/LM1LC3N7/gladys-discord/main/cover.png",
+  "categories": ["notifications", "assistants"],
+  "transports": ["cloud"],
+  "messaging": { "receive": true },
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": { "en": "Discord in Gladys", "fr": "Discord dans Gladys" },
+      "description": {
+        "en": "Unofficial connector, not affiliated with Discord. A Discord bot you create becomes a Gladys chat channel: each Gladys user links their Discord account once, then talks to Gladys in direct messages with the bot and receives its answers and notifications there. Create the bot on the Discord Developer Portal (New Application, then Bot, then Reset Token), paste its token below, save, and use the invite link given by the \"Test the bot\" button to add it to a server you are a member of.",
+        "fr": "Connecteur non officiel, sans lien avec Discord. Un bot Discord que vous créez devient un canal de discussion de Gladys : chaque utilisateur de Gladys lie son compte Discord une fois, puis parle à Gladys en message privé avec le bot et y reçoit ses réponses et notifications. Créez le bot sur le Discord Developer Portal (New Application, puis Bot, puis Reset Token), collez son jeton ci-dessous, enregistrez, et utilisez le lien d'invitation donné par le bouton « Tester le bot » pour l'ajouter à un serveur dont vous êtes membre."
+      },
+      "links": [
+        {
+          "url": "https://discord.com/developers/applications",
+          "label": { "en": "Discord Developer Portal", "fr": "Discord Developer Portal" }
+        },
+        {
+          "url": "https://github.com/LM1LC3N7/gladys-discord/blob/main/docs/fr.md",
+          "label": { "en": "Guide (French)", "fr": "Guide (français)" }
+        },
+        {
+          "url": "https://github.com/LM1LC3N7/gladys-discord/blob/main/docs/en.md",
+          "label": { "en": "Guide (English)", "fr": "Guide (anglais)" }
+        }
+      ]
+    },
+    {
+      "key": "bot_token",
+      "type": "secret",
+      "label": { "en": "Bot token", "fr": "Jeton du bot" },
+      "description": {
+        "en": "Developer Portal → your application → Bot → Reset Token. Stored encrypted by Gladys; never share it.",
+        "fr": "Developer Portal → votre application → Bot → Reset Token. Stocké chiffré par Gladys ; ne le partagez jamais."
+      },
+      "required": true
+    },
+    {
+      "key": "linking",
+      "type": "section",
+      "label": { "en": "Link your Discord account", "fr": "Lier votre compte Discord" },
+      "description": {
+        "en": "Each Gladys user clicks \"Generate a link code\" in the \"Link my account\" block and sends the 8-character code to the bot in a Discord direct message (a code works once, for 15 minutes). After that, the messages you send the bot go to Gladys, and Gladys answers there. A message starting with ! (like \"!garage open\") is not sent to the assistant: it fires the \"Discord command received\" scene trigger instead.",
+        "fr": "Chaque utilisateur de Gladys clique sur « Générer un code de liaison » dans le bloc « Lier mon compte » et envoie le code de 8 caractères au bot en message privé Discord (un code ne sert qu'une fois, pendant 15 minutes). Ensuite, les messages envoyés au bot vont à Gladys, qui y répond. Un message qui commence par ! (comme « !garage ouvre ») n'est pas envoyé à l'assistant : il déclenche à la place le déclencheur de scène « Commande Discord reçue »."
+      }
+    },
+    {
+      "key": "allowed_user_ids",
+      "type": "string",
+      "label": {
+        "en": "Allowed Discord user ids (optional)",
+        "fr": "Identifiants Discord autorisés (facultatif)"
+      },
+      "description": {
+        "en": "Safety list: when filled, the bot ignores the direct messages of everyone else, link codes included. Ids separated by commas (Discord: Settings → Advanced → Developer Mode, then right-click a user → Copy User ID).",
+        "fr": "Liste de sécurité : si elle est remplie, le bot ignore les messages privés de toute autre personne, codes de liaison compris. Identifiants séparés par des virgules (Discord : Paramètres → Avancés → Mode développeur, puis clic droit sur un utilisateur → Copier l'identifiant)."
+      },
+      "required": false,
+      "placeholder": { "en": "123456789012345678", "fr": "123456789012345678" }
+    },
+    {
+      "key": "notification_channel_id",
+      "type": "string",
+      "label": {
+        "en": "Default server channel id (optional)",
+        "fr": "Identifiant du salon par défaut (facultatif)"
+      },
+      "description": {
+        "en": "Channel used by the \"Post in a Discord channel\" scene action when it names none (right-click the channel → Copy Channel ID). The bot must be a member of that server.",
+        "fr": "Salon utilisé par l'action de scène « Publier dans un salon Discord » quand elle n'en précise pas (clic droit sur le salon → Copier l'identifiant). Le bot doit être membre de ce serveur."
+      },
+      "required": false,
+      "placeholder": { "en": "123456789012345678", "fr": "123456789012345678" }
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "timeout_seconds": 30,
+      "label": { "en": "Test the bot", "fr": "Tester le bot" },
+      "description": {
+        "en": "Checks the token, the gateway, the default channel, and gives the invite link of the bot.",
+        "fr": "Vérifie le jeton, la passerelle, le salon par défaut, et donne le lien d'invitation du bot."
+      }
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "command_received",
+      "label": { "en": "Discord command received", "fr": "Commande Discord reçue" },
+      "description": {
+        "en": "A linked user sent the bot a direct message starting with !, like \"!garage open\". Such messages are not sent to the assistant.",
+        "fr": "Un utilisateur lié a envoyé au bot un message privé commençant par !, comme « !garage ouvre ». Ces messages ne sont pas envoyés à l'assistant."
+      },
+      "fields": [
+        {
+          "key": "command",
+          "type": "string",
+          "required": false,
+          "label": {
+            "en": "Command: the word after !, lowercase, no accents (empty: any)",
+            "fr": "Commande : le mot après !, en minuscules, sans accents (vide : toutes)"
+          },
+          "placeholder": { "en": "garage", "fr": "garage" }
+        }
+      ],
+      "variables": [
+        { "key": "command", "type": "string", "label": { "en": "Command", "fr": "Commande" } },
+        {
+          "key": "text",
+          "type": "string",
+          "label": { "en": "Text after the command", "fr": "Texte après la commande" }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": { "en": "Whole message", "fr": "Message complet" }
+        },
+        {
+          "key": "user",
+          "type": "string",
+          "label": { "en": "Gladys user (first name)", "fr": "Utilisateur Gladys (prénom)" }
+        },
+        {
+          "key": "user_selector",
+          "type": "string",
+          "label": { "en": "Gladys user (selector)", "fr": "Utilisateur Gladys (sélecteur)" }
+        },
+        {
+          "key": "discord_user_id",
+          "type": "string",
+          "label": { "en": "Discord user id", "fr": "Identifiant Discord" }
+        },
+        {
+          "key": "discord_username",
+          "type": "string",
+          "label": { "en": "Discord username", "fr": "Nom d'utilisateur Discord" }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "post_in_channel",
+      "label": { "en": "Post in a Discord channel", "fr": "Publier dans un salon Discord" },
+      "description": {
+        "en": "Posts a text in a server channel (the default channel of the configuration when none is given). Texts longer than 2000 characters are split.",
+        "fr": "Publie un texte dans un salon d'un serveur (le salon par défaut de la configuration si aucun n'est donné). Les textes de plus de 2000 caractères sont découpés."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "text",
+          "type": "string",
+          "required": true,
+          "label": { "en": "Text", "fr": "Texte" }
+        },
+        {
+          "key": "channel_id",
+          "type": "string",
+          "required": false,
+          "label": {
+            "en": "Channel id (empty: the default channel)",
+            "fr": "Identifiant du salon (vide : le salon par défaut)"
+          },
+          "placeholder": { "en": "123456789012345678", "fr": "123456789012345678" }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "message_id",
+          "type": "string",
+          "label": { "en": "Id of the posted message", "fr": "Identifiant du message publié" }
+        },
+        {
+          "key": "channel_id",
+          "type": "string",
+          "label": { "en": "Channel id", "fr": "Identifiant du salon" }
+        }
+      ]
+    }
+  ]
+}
