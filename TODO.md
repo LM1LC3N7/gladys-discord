@@ -34,3 +34,7 @@
   their content without the privileged intent).
 - A "send a direct message to a Discord user id" scene action, for people
   who do not have a Gladys account.
+
+## Next patch
+
+- Migration review w11 r1 minors (`_lots/migration-reviews/w11-gladys-discord-r1.md`): the README `npm test` line omits `--test-timeout=60000`.
