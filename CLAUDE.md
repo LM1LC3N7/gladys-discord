@@ -8,7 +8,7 @@ human contributors.
 A Gladys Assistant **external integration** of type `communication`
 (`messaging.receive: true`): a Node.js service (Node 22+, ESM, no build step)
 in its own sandboxed Docker container, talking to Gladys through
-`@gladysassistant/integration-sdk` (v0.15). It turns a **Discord bot** (the
+`@gladysassistant/integration-sdk` (v0.16). It turns a **Discord bot** (the
 user's own application, token in the config) into a Gladys chat channel,
 Telegram style: link by code, DMs to the brain, answers and notifications
 back as DMs, plus a "!command" scene trigger and a "post in a channel" scene
@@ -18,7 +18,7 @@ action. Unofficial: not affiliated with Discord.
 
 ```bash
 npm install
-npm test                                  # node --test, the built-in runner
+npm test                                  # node --test --test-timeout=60000
 node --test test/gateway.test.js          # one file
 npm run lint                              # ESLint
 npm run format:check                      # Prettier, as the CI runs it
