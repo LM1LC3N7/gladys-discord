@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-24
+
 ### Changed
 
 - Integration SDK 0.16.1 (no change for the bot).
@@ -34,5 +36,6 @@ the notes of the version's GitHub Release.
 - Gateway connection with heartbeat, resume and reconnection; REST rate
   limits honoured.
 
-[Unreleased]: https://github.com/LM1LC3N7/gladys-discord/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/LM1LC3N7/gladys-discord/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/LM1LC3N7/gladys-discord/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/LM1LC3N7/gladys-discord/releases/tag/v0.1.1
